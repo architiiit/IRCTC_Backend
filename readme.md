@@ -15,7 +15,7 @@ cd your-repo
 
 ### **2️⃣ Install Dependencies**
 ```bash
-npm install
+npm install bcrypt cookie-parser dotenv express jsonwebtoken nodemon pg sequelize
 ```
 
 ### **3️⃣ Set Up Environment Variables (`.env`)**
@@ -34,6 +34,22 @@ ADMIN_API_KEY=your_admin_api_key
 ```bash
 npm start  # or nodemon server.js
 ```
+
+---
+
+## 📌 Dependencies
+This project uses the following npm packages:
+
+| Package          | Version  | Description |
+|-----------------|----------|-------------|
+| **bcrypt**      | ^5.1.1   | Hashes passwords securely. |
+| **cookie-parser** | ^1.4.7 | Parses cookies for handling sessions. |
+| **dotenv**      | ^16.4.7  | Loads environment variables from a `.env` file. |
+| **express**     | ^4.21.2  | Web framework for Node.js. |
+| **jsonwebtoken** | ^9.0.2  | Implements JWT authentication. |
+| **nodemon**     | ^3.1.9  | Automatically restarts the server on code changes. |
+| **pg**          | ^8.13.3  | PostgreSQL client for Node.js. |
+| **sequelize**   | ^6.37.5  | ORM for handling PostgreSQL database operations. |
 
 ---
 
@@ -144,98 +160,6 @@ npm start  # or nodemon server.js
     }
   ]
   ```
-
----
-
-### **🎟️ 3. Booking Routes**
-> **🔒 Requires `Authorization: Bearer <JWT>` in headers.**
-
-#### **📌 Book a Seat**
-- **Endpoint:** `POST /api/book`
-- **Headers:**
-  ```json
-  {
-    "Authorization": "Bearer your_jwt_token"
-  }
-  ```
-- **Request Body:**
-  ```json
-  {
-    "trainId": 1,
-    "source": "Delhi",
-    "destination": "Mumbai"
-  }
-  ```
-- **Response:**
-  ```json
-  {
-    "message": "Booking successful",
-    "booking": {
-      "id": 10,
-      "userId": 1,
-      "trainId": 1
-    }
-  }
-  ```
-
-#### **📌 Get Booking Details**
-- **Endpoint:** `GET /api/booking/details/:id`
-- **Headers:**
-  ```json
-  {
-    "Authorization": "Bearer your_jwt_token"
-  }
-  ```
-- **Response:**
-  ```json
-  {
-    "id": 10,
-    "user": {
-      "id": 1,
-      "username": "john_doe"
-    },
-    "train": {
-      "id": 1,
-      "train_name": "Rajdhani Express"
-    },
-    "source": "Delhi",
-    "destination": "Mumbai",
-    "status": "confirmed"
-  }
-  ```
-
----
-
-## 🔥 **Error Handling**
-- **Invalid Token:**
-  ```json
-  {
-    "message": "Invalid token"
-  }
-  ```
-- **No Seats Available:**
-  ```json
-  {
-    "message": "No seats available"
-  }
-  ```
-
----
-
-## 📜 **Authorization & Security**
-- **User Authentication:** JWT-based authentication (`Bearer <token>`).
-- **Admin Authorization:** Requires `x-api-key` in headers.
-- **Middleware:**
-  - `authMiddleware` → Protects user routes.
-  - `adminMiddleware` → Protects admin routes.
-
----
-
-## 📬 **Testing the API**
-You can test the API using:
-- **Postman** (`Authorization: Bearer <token>`)
-- **cURL** (`-H "Authorization: Bearer <token>"`)
-- **Thunder Client (VS Code Extension)**
 
 ---
 
